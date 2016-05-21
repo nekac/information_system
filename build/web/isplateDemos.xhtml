@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Isplate demonstratora</title>
+    </h:head>
+    <h:body>
+         
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+            <h:form id="formIsplateDemos">
+                <rich:dataTable value="#{isplateDemonstratora.mojeIsplate}" var="i" id="tableIsplateDemos" rows="15" rowClasses="odd-row, even-row"
+                    styleClass="stable">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Moje isplate"/>
+                    </f:facet>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Datum" />
+                        </f:facet>
+                        <h:outputText value="#{i.datum}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Tip" />
+                        </f:facet>
+                        <h:outputText value="#{i.tip}" />
+                    </rich:column>
+                    
+                    
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Isplata" />
+                        </f:facet>
+                        <h:outputText value="#{i.isplata}" >
+                            <f:convertNumber pattern="####.00 din" />
+                        </h:outputText>
+                    </rich:column>
+                    
+                    <f:facet name="footer">
+ 
+                        <rich:columnGroup>
+                            <rich:column>Ukupno</rich:column>
+                            <rich:column>
+                                <h:outputText value="       ">
+
+                                </h:outputText>
+                            </rich:column>
+                            
+                            <rich:column>
+                                <h:outputText value="#{isplateDemonstratora.ukupnoIsplaceno}">
+                                    <f:convertNumber pattern="#####.00 din" />
+                                </h:outputText>
+                            </rich:column>
+                        </rich:columnGroup>
+                        
+                    </f:facet>
+                
+                </rich:dataTable>
+            </h:form>
+
+        </ui:define> 
+        </ui:composition>
+        
+    </h:body>
+</html>
+

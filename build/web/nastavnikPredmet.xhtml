@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <h:head>
+        <title>Pregled predmeta</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+            <h:form id="formNastPred">
+                
+                <h:panelGrid columns="4">
+                <h:commandButton value="Svi predmeti" actionListener="#{ucitajPredmete.ucitajFlagSviPr()}" >
+                    <a4j:actionListener listener="#{ucitajPredmete.handleActionMethodPredmet()}"/>
+                    <f:ajax render="tableNastPred"/>
+                </h:commandButton>
+
+                <h:commandButton value="Moji predmeti" actionListener="#{ucitajPredmete.ucitajFlagMojiPr()}">
+                    <a4j:actionListener listener="#{ucitajPredmete.handleActionMethodPredmet()}"/>
+                    <f:ajax render="tableNastPred"/>
+                </h:commandButton>
+                </h:panelGrid><br/>
+                
+               
+                    
+<!--                    <h:selectOneMenu value="#{kreiranjeLabVezbe.stringDemSvi}">
+                        <f:selectItems value="#{kreiranjeLabVezbe.stringDemSvi}"/>
+                        <a4j:ajax render="table" execute="@this" event="change"/>
+                    </h:selectOneMenu>-->
+                    
+<!--                    <h:commandButton value="Filtriraj predmete prema asistentu" actionListener="#{ucitajPredmete.ucitajFlagOdabraniPr()}" >
+                        <a4j:actionListener listener="#{ucitajPredmete.handleActionMethodPredmet()}"/>
+                        <f:ajax render="tableNastPred"/>
+                    </h:commandButton>-->
+                    
+                
+                
+             
+                <rich:dataTable value="#{ucitajPredmete.prikaziPredmeti}" var="p" id="tableNastPred" rows="15" rowClasses="odd-row, even-row"
+                    styleClass="stable">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Predmeti"/>
+                    </f:facet>
+                    
+                    <rich:column filterValue="#{ucitajPredmete.filterSifra}" 
+                                 filterExpression="#{fn:containsIgnoreCase(p.sifra, ucitajPredmete.filterSifra)}" 
+                                 filterType="custom" >
+                        <f:facet name="header">
+                            <h:outputText value="Sifra" />
+
+                        </f:facet>
+                        <h:outputText value="#{p.sifra}" />
+                    </rich:column>
+                    
+                    <rich:column filterValue="#{ucitajPredmete.filterPredmet}" 
+                                 filterExpression="#{fn:containsIgnoreCase(p.naziv, ucitajPredmete.filterPredmet)}" 
+                                 filterType="custom">
+                        <f:facet name="header">
+                            <h:outputText value="Naziv" />
+
+                        </f:facet>
+                        <h:outputText value="#{p.naziv}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Semestar" />
+                        </f:facet>
+                        <h:outputText value="#{p.semestar}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Skolska godina" />
+                        </f:facet>
+                        <h:outputText value="#{p.skolaskaGodina}" />
+                    </rich:column>
+                
+                </rich:dataTable>
+            </h:form>
+
+        </ui:define> 
+        </ui:composition>
+    </h:body>
+</html>
+

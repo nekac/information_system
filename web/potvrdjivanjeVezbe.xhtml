@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"> 
+    <h:head>
+        <title>Potvrda laboratorijske vezbe</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+                <h:form id="formPotVez">
+                <rich:dataTable value="#{ucitajL.mojeNepotvrdjeneLabVezbe}" var="lab" id="tablePotVez" rows="15" rowClasses="odd-row, even-row"
+                                styleClass="stable" style="width: 100px;">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Laboratorijske vezbe"/>
+                    </f:facet>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Predmet" />
+                        </f:facet>
+                        <h:outputText value="#{lab.predmet}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.predmet}" rendered="#{lab.edit}" size="4" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Naziv" />
+                        </f:facet>
+                        <h:outputText value="#{lab.naziv}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.naziv}" rendered="#{lab.edit}" size="10" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Datum" />
+                        </f:facet>
+                        <h:outputText value="#{lab.datum}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.datum}" rendered="#{lab.edit}" size="9" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Pocetak" />
+                        </f:facet>
+                        <h:outputText value="#{lab.vremeod}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.vremeod}" rendered="#{lab.edit}" size="7" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Kraj" />
+                        </f:facet>
+                        <h:outputText value="#{lab.vremedo}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.vremedo}" rendered="#{lab.edit}"  size="7" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lab" />
+                        </f:facet>
+                        <h:outputText value="#{lab.laboratorija}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.laboratorija}" rendered="#{lab.edit}"  size="3" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Akt" />
+                        </f:facet>
+                        <h:outputText value="#{lab.tipaktivnosti}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.tipaktivnosti}" rendered="#{lab.edit}" size="1" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Broj stud" />
+                        </f:facet>
+                        <h:outputText value="#{lab.maxbrojstudenata}" rendered="#{not lab.edit}"/>
+                        <h:inputText value="#{lab.maxbrojstudenata}" rendered="#{lab.edit}" size="2" required="true" requiredMessage="Ne sme biti prazno!"/>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <a4j:commandLink action="#{ucitajL.editLab(lab)}" rendered="#{not lab.edit}" execute="tablePotVez" render="tablePotVez">Izmeni</a4j:commandLink>
+                    
+                        
+                    </rich:column>
+                    
+                    <rich:column>
+                        <h:commandButton value="Demonstratori"  rendered="#{not lab.edit}" >
+                            <rich:componentControl target="popup" operation="show" />
+                        </h:commandButton>
+                        <rich:popupPanel id="popup" modal="false" autosized="true" resizeable="false" >
+                            <f:facet name="header">
+                                <h:outputText value="Demonstratori" />
+                            </f:facet>
+                            <f:facet name="controls">
+                                <h:outputLink value="#" onclick="#{rich:component('popup')}.hide(); return false;">
+                                    X
+                                </h:outputLink>
+                            </f:facet>
+                            
+                               
+                            <a4j:commandButton value="Izbaci demonstratore?" action="#{popupDem.ucitaj(lab)}" execute="popupTable" render="popupTable" />
+                                    
+                                <rich:dataTable id="popupTable" value="#{popupDem.stringPostojeciDemosi}" var="dem" rows="15" rowClasses="odd-row, even-row" styleClass="stable">
+                                    
+                                    <rich:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Demonstratori" />
+                                        </f:facet>
+                                        <h:outputText value="#{dem}" />
+                                    </rich:column>
+
+                                    <rich:column>
+                                        <f:facet name="header">
+
+                                        </f:facet>
+                                        <a4j:commandButton value="Izbaci" action="#{popupDem.izbaciDemonstratora(dem)}" execute="@this" render="popupTable"/>
+                                    </rich:column>
+                                    
+                                </rich:dataTable>
+                                <rich:pickList id="pick" value="#{popupDem.stringDemIzabrani}"
+                                                    sourceCaption="Svi demonstratori" targetCaption="Izabrani demonstratori"
+                                                    listWidth="170px" listHeight="100px"
+                                                    orderable="true">
+                                    <f:selectItems value="#{popupDem.stringDemSvi}" var="demos" itemValue="#{demos}" itemLabel="#{demos}" />
+                                </rich:pickList>
+                            <a4j:commandButton value="Dodaj demonstratore" action="#{popupDem.dodajDemonstratore()}" execute="popupPanel" render="popupPanel"/>
+                            
+                        </rich:popupPanel>
+                        
+                        
+                        <h:commandButton value="Zakljucaj" action="#{ucitajL.zakljucaj(lab)}" rendered="#{not lab.edit}"  onclick="return confirm('Da li ste sigurni?')">
+                            
+                        </h:commandButton>
+                    </rich:column>
+                    
+                </rich:dataTable>
+                    <a4j:commandLink action="#{ucitajL.editedLab()}" execute="tablePotVez" render="tablePotVez">Sacuvaj</a4j:commandLink>
+            </h:form>
+
+        </ui:define> 
+        </ui:composition>
+    </h:body>
+</html>
+

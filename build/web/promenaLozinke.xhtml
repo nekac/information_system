@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Promena lozinke</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml">
+
+            <ui:define name="content">
+                <div style="padding-bottom: 25px; font-family: lucida Grande; font-size: 26pt;">
+                    Promena lozinke
+                </div>
+                <h:form id="form1">
+                    <rich:graphValidator value="#{promenaLozinke}" id="gv" binding="#{promenaLozinke.component}">
+                        <h:panelGrid columns="3" id="userPanel1">
+                            #{labels.username}
+                            <h:inputText value="#{promenaLozinke.username}" id="usernameLabel" required="true"
+                                           requiredMessage="Unesite korisničko ime!">
+                            </h:inputText>
+                            <rich:message for="oldPassLabel" ajaxRendered="true" ></rich:message>
+                            #{labels.oldPassword}
+                            <h:inputSecret value="#{promenaLozinke.password}" id="newPassLabel">
+                                <f:validateLength minimum="5"/>
+                            </h:inputSecret>
+
+                            <rich:message for="newPassLabel" ajaxRendered="true" >
+
+                            </rich:message>
+                            #{labels.newPassword}
+                            <h:inputSecret value="#{promenaLozinke.newPassword}" id="confPassLabel">
+                                <f:validateLength minimum="5"/>
+                            </h:inputSecret>
+
+                            <rich:message for="confPassLabel" ajaxRendered="true" >
+
+                            </rich:message>
+
+                            <h:outputText value="      "></h:outputText>
+                            <a4j:commandButton value=" Promeni lozinku " action="#{promenaLozinke.updatePassword}" onclick="return confirm('Da li ste sigurni?')"></a4j:commandButton>
+                            <rich:message for="gv"/>
+                        </h:panelGrid>
+                    </rich:graphValidator>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./resources/css/cssLayoutFile2.css" rel="stylesheet" type="text/css" />
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body style="background-image: url(resources/body-bg.jpg);">
+        <div id="wrapper">
+            <div id="top">
+                <ui:insert name="top"> <h:graphicImage url="resources/etf.jpg"  />
+                </ui:insert>
+            </div>
+            <div>
+                <div id="left">
+                    <ui:insert name="left">
+                        
+                        <h:form id="menuForm">
+
+                        <h:panelGrid styleClass="vertical-menu-cell" columnClasses="optionList"
+                                     columns="1" cellspacing="5" cellpadding="5">
+                            
+                            <rich:menuItem label="Informacije" style="width: 100px; font-size: 12pt; font-weight: bold; text-align: center; border-top:3px solid #{a4jSkin.panelBorderColor};
+                                border-bottom:3px solid #{a4jSkin.panelBorderColor}; color: black" action="#{navigation.getHomepage}" />
+
+                            <rich:dropDownMenu jointPoint="topRight" direction="bottomRight" rendered="#{logIn.user.type!=2}"
+                                               style="width: 100px; font-size: 12pt; text-align: center; border-top:1px solid #{a4jSkin.panelBorderColor};
+                                                    border-bottom:1px solid #{a4jSkin.panelBorderColor};color: black" 
+                                               label="Opcije" mode="server">
+                                
+                                
+                                <rich:menuItem label="Kreiranje ankete" action="kreirajAnketu" rendered="#{logIn.user.type==0}"/>
+                                <rich:menuItem label="Zahtevi za registraciju" action="potvrdjivanjeRegistracija" rendered="#{logIn.user.type==0}"/>
+                                <rich:menuItem label="Nova vežba" action="nastavnikVezbaKreiranje" rendered="#{logIn.user.type==1}" />
+                                <rich:menuItem label="Potvrda vežbe" action="potvrdjivanjeVezbe" rendered="#{logIn.user.type==1}" />
+                                <rich:menuItem label="Dodaj demonstrator" action="dodajDemonstratora" rendered="#{logIn.user.type==1}"/>
+                                 <rich:menuItem label="Dodeli predmet nastavniku" action="dodajPredmetAdmin" rendered="#{logIn.user.type==0}"/>
+                                 <rich:menuItem label="Obračun" action="obracun" rendered="#{logIn.user.type==0}"/>
+                            </rich:dropDownMenu>
+                            
+                            <rich:dropDownMenu jointPoint="topRight" direction="bottomRight" 
+                                               style="width: 100px; font-size: 12pt; text-align: center; border-top:1px solid #{a4jSkin.panelBorderColor};
+                                                    border-bottom:1px solid #{a4jSkin.panelBorderColor};color: black" 
+                                               label="Pregled" mode="server">
+                                <rich:menuItem label="Moje rezervacije" action="#{userReserv.getUserReservations}" rendered="#{user.isUser}" />
+                                <rich:menuItem label="Moje pozajmice" action="#{userLoans.getLoans}" rendered="#{user.isUser}" />
+                                <rich:menuItem label="Pregled demonstratora" action="nastavnikDemonstrator" rendered="#{logIn.user.type==1}"/>
+                                <rich:menuItem label="Pregled predmeta" action="nastavnikPredmet" rendered="#{logIn.user.type==1}"/>
+                                <rich:menuItem label="Moji predmeti" action="predmetiDemos" rendered="#{logIn.user.type==2}"/>
+                                <rich:menuItem label="Laboratorijske vežbe" action="nastavnikVezba" rendered="#{logIn.user.type==1}" />
+                                <rich:menuItem label="Ponude" action="ponudeDemos" rendered="#{logIn.user.type==2}"/>
+                                <rich:menuItem label="Arhiva" action="arhivaDemos" rendered="#{logIn.user.type==2}"/>
+                                <rich:menuItem label="Isplate" action="isplateDemos" rendered="#{logIn.user.type==2}"/>
+                                <rich:menuItem label="Demonstratori isplate" action="adminObracuni" rendered="#{logIn.user.type==0}"/>
+                                <rich:menuItem label="Šifarnik" action="sifarnik"/>
+                            </rich:dropDownMenu>
+                                
+                            <rich:dropDownMenu jointPoint="topRight" direction="bottomRight" rendered="#{logIn.user.type==0}"
+                                               style="width: 100px; font-size: 12pt; text-align: center; border-top:1px solid #{a4jSkin.panelBorderColor};
+                                                    border-bottom:1px solid #{a4jSkin.panelBorderColor};color: black" 
+                                               label="Dodavanje" mode="server">
+                                    <rich:menuItem label="Dodaj nastavnik" action="dodajNastavnika" rendered="#{logIn.user.type==0}"/>
+                                    <rich:menuItem label="Dodaj demonstrator" action="dodajDemonstratora" rendered="#{logIn.user.type==0}"/>
+                                    <rich:menuItem label="Dodaj predmet" action="dodajPredmet" rendered="#{logIn.user.type==0}"/>
+                                   
+                            </rich:dropDownMenu>
+                            
+                            <rich:dropDownMenu jointPoint="topRight" direction="bottomRight" rendered="#{logIn.user.type==2}"
+                                               style="width: 100px; font-size: 12pt; text-align: center; border-top:1px solid #{a4jSkin.panelBorderColor};
+                                                    border-bottom:1px solid #{a4jSkin.panelBorderColor};color: black" 
+                                               label="Obaveze" mode="server">
+                                 <rich:menuItem label="Anketa" action="popunjavanjeAnkete" rendered="#{logIn.user.type==2}"/>
+                                   
+                            </rich:dropDownMenu>
+                        
+                            
+                            <rich:dropDownMenu
+                                label="Nalog" style="width: 100px; font-size: 12pt; text-align: center; border-top:1px solid #{a4jSkin.panelBorderColor};
+                                border-bottom:1px solid #{a4jSkin.panelBorderColor};color: black"
+                                mode="server" jointPoint="topRight" direction="bottomRight">
+                                <rich:menuItem label="Odjavi se" action="#{logIn.logOutUser}" onclick="alert('Odjavljeni ste');"/>
+                                <rich:menuItem label="Promeni lozinku" action="promenaLozinke"/>
+                             </rich:dropDownMenu>
+
+                        </h:panelGrid>
+                            </h:form>
+
+                    </ui:insert>
+                </div>
+                <div id="content" class="left_content">
+                    <ui:insert name="content">   </ui:insert>
+                </div>
+            </div>
+            <div id="bottom">
+                <ui:insert name="bottom">#{labels.footer}</ui:insert>
+            </div>
+        </div>
+    </h:body>
+</html>
+

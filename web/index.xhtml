@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich">
+    <h:head>
+        <title>Informacioni sistem</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                <div style="padding-bottom: 15px; font-family: lucida Grande; font-size: 16.5pt; position: absolute; left: 220px; color: gray;">
+                </div>
+                <div style="padding: 10px; position: absolute; left: 220px; top: 40px; border-bottom: 2px solid gray; border-top: 2px solid gray;">
+
+                    <h:form id="form1">
+
+                        <h:panelGrid columns="3" id="userPanel1" >
+                            #{labels.username}
+                            <h:inputText value="#{logIn.username}" autocomplete="off" id="usernameLabel" required="true"
+                                         requiredMessage="Unesite korisničko ime!"/>
+                            <rich:message for="usernameLabel" ajaxRendered="true" ></rich:message>
+                            #{labels.password}
+                            <h:inputSecret value="#{logIn.password}" autocomplete="off" id="passLabel">
+                                <f:validateLength minimum="5"/>
+                            </h:inputSecret>
+
+                            <rich:message for="passLabel" ajaxRendered="true" >
+
+                            </rich:message>
+
+                            <h:outputText value=""></h:outputText>
+                            <h:commandButton value=" Prijavi se " action="#{logIn.logInUser}"></h:commandButton>
+                            <h:outputText value="" id="messageId" binding="#{logIn.component}"></h:outputText>
+
+                        </h:panelGrid>
+
+                        <rich:message for="messageId"></rich:message>
+                    </h:form>
+
+
+                    <h:form id="form2" style="padding: 20px;">
+                        <h:panelGrid columns="2" id="userPanel2" >
+                            <h:commandLink action="registracijaNastavnika">Registracija nastavnika</h:commandLink>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" id="userPanel3" >
+                            <h:commandLink action="registracijaDemonstratora">Registracija demonstratora</h:commandLink>
+                        </h:panelGrid> 
+                        <h:panelGrid columns="2" id="userPanel4" >
+                        #{labels.changePassword}
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </ui:define>
+
+
+
+        </ui:composition>
+               
+    </h:body>
+</html>
+

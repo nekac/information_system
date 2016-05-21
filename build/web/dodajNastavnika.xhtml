@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Dodavanje nastavnika</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+
+
+                <div style="padding-bottom: 25px; font-family: lucida Grande; font-size: 26pt;">
+                    Dodavanje nastavnika
+                </div>
+                <div>
+                    <h:form id="formDodajNastavnika" enctype="multipart/form-data">
+                        <rich:graphValidator value="#{dodajNastavnika}" id="gv" binding="#{dodajNastavnika.component}">
+                            <h:panelGrid columns="3" id="userPanel11">
+                                
+                                #{labels.username}
+                                <h:inputText value="#{dodajNastavnika.userName}" id="usernameLabel" required="true"
+                                             requiredMessage="Polje 'Korisničko ime' je obavezno.">
+                                </h:inputText>
+                                <rich:message for="usernameLabel" ajaxRendered="true" ></rich:message>
+                                
+                                #{labels.password}
+                                <h:inputSecret value="#{dodajNastavnika.password}" id="passLabel">
+                                    <f:validateLength minimum="5"/>
+                                </h:inputSecret>
+                                <rich:message for="passLabel" ajaxRendered="true" ></rich:message>
+                                
+                                #{labels.passwordConfirm}
+                                <h:inputSecret value="#{dodajNastavnika.passwordConfirm}" id="passLabelConfirm">
+                                    <f:validateLength minimum="5"/>
+                                </h:inputSecret>
+                                <rich:message for="passLabelConfirm" ajaxRendered="true" ></rich:message>
+                                
+                                #{labels.name}
+                                <h:inputText value="#{dodajNastavnika.name}" id="nameLabel" required="true"
+                                             requiredMessage="Polje 'Ime' je obavezno.">
+                                </h:inputText>
+                                <rich:message for="nameLabel" ajaxRendered="true" ></rich:message>
+                                #{labels.surName}
+                                <h:inputText value="#{dodajNastavnika.surname}" id="surNameLabel" required="true"
+                                             requiredMessage="Polje 'Prezime' je obavezno.">
+                                </h:inputText>
+                                <rich:message for="surNameLabel" ajaxRendered="true" ></rich:message>
+                                
+                                #{labels.phone}
+                                <h:inputText value="#{dodajNastavnika.telNumber}" id="phoneLabel" required="true"
+                                             requiredMessage="Polje 'Telefon' je obavezno.">
+                                </h:inputText>
+                                <rich:message for="phoneLabel" ajaxRendered="true" ></rich:message>
+
+                                #{labels.email}
+                                <h:inputText value="#{dodajNastavnika.email}" id="emailLabel" required="true"
+                                             requiredMessage="Polje 'Elektronska pošta' je obavezno." validatorMessage="Loš format elektronske adrese.">
+                                    <rich:validator>
+                                        <f:validateRegex pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$" ></f:validateRegex>
+                                    </rich:validator>
+                                </h:inputText>
+                                <rich:message for="emailLabel" ajaxRendered="true" ></rich:message>
+                                
+                                #{labels.addPicture}
+                                <h:inputFile value="#{uplCtrl.file}"/>
+
+                                <h:outputText value="      "></h:outputText>
+                                <a4j:commandButton value=" Dodaj " action="#{dodajNastavnika.registrujNastavnika()}" onclick="alert('Registracija zavrsena!');" ></a4j:commandButton>
+                                
+                            </h:panelGrid>
+                        </rich:graphValidator>
+                    </h:form>
+                </div>
+
+                </ui:define> 
+        </ui:composition>
+    </h:body>
+</html>
+

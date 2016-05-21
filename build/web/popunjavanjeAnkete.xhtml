@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head> 
+        <title>Popunjavanje ankete</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+
+                <div style="padding-bottom: 25px; font-family: lucida Grande; font-size: 26pt;">
+                    Anketa
+                </div>
+                
+                <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+                <h:outputLabel value="Anketa je popunjena" rendered="#{popunjavanjeAnkete.anketiran}" />
+            <h:form id="formAnketaDem">
+                <rich:dataTable value="#{popunjavanjeAnkete.sviPredmeti}" var="p" id="tableAnketaDem" rows="15" rowClasses="odd-row, even-row"
+                                styleClass="stable" rendered="#{!popunjavanjeAnkete.anketiran}">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Predmeti"/>
+                    </f:facet>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Sifra" />
+                        </f:facet>
+                        <h:outputText value="#{p.sifra}" />
+                    </rich:column>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Naziv" />
+                        </f:facet>
+                        <h:outputText value="#{p.naziv}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Semestar" />
+                        </f:facet>
+                        <h:outputText value="#{p.semestar}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Skolska godina" />
+                        </f:facet>
+                        <h:outputText value="#{p.skolaskaGodina}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Izaberi" />
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{p.check}"/>
+                    </rich:column>
+                    
+                </rich:dataTable>
+                <h:commandButton value="Zavrsi anketu" action="#{popunjavanjeAnkete.sacuvaj()}" onclick="setTimeout('this.disabled = true;', 50);"  rendered="#{!popunjavanjeAnkete.anketiran}"/>
+            </h:form>
+                
+            </ui:define> 
+        </ui:composition>
+        
+    </h:body>
+</html>
+

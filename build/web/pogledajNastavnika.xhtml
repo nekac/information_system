@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml"> 
+            
+            <ui:define name="content">
+                <div style="padding-bottom: 25px; font-family: lucida Grande; font-size: 26pt;">
+                    Demonstrator
+                </div>
+                
+                <ui:insert name="top"> <h:graphicImage url="resources/images/#{ucitajDemonstratore.nast.image}" height="200" width="170"/>
+                </ui:insert>
+                
+                <div style="margin: 10px;">
+                    <h:form id="formMain2222">
+                        <h:panelGrid columns="2" >
+                            
+                            Korisničko ime:
+                            <h:outputText value="#{ucitajDemonstratore.nast.userName}"></h:outputText>
+                            Ime:
+                            <h:outputText value="#{ucitajDemonstratore.nast.name}"></h:outputText>
+                            Prezime:
+                            <h:outputText value="#{ucitajDemonstratore.nast.surname}"></h:outputText>
+                            Broj telefona:
+                            <h:outputText value="#{ucitajDemonstratore.nast.telNumber}"></h:outputText>
+                            Email adresa:
+                            <h:outputText value="#{ucitajDemonstratore.nast.email}"></h:outputText>
+                            
+                        </h:panelGrid>
+                        <i><h:commandLink action="potvrdjivanjeRegistracija">vrati se nazad</h:commandLink></i>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>
+

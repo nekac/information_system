@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Kreireanje ankete</title> 
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+
+
+                <div style="padding-bottom: 25px; font-family: lucida Grande; font-size: 26pt;">
+                    Kreiranje ankete
+                </div>
+                <div>
+                    <h:form id="formKreirajAnketu">
+                        Tekuca skolska godina:<br/>
+                        <h:inputText value="#{kreirajAnk.skolskaGodina}" required="true" requiredMessage="Polje ne sme biti prazno" validatorMessage="Vrednost mora biti u formi yyyy/yyyy (npr. 2014/2015)">
+                            <rich:validator>
+                                <f:validateRegex pattern="\d\d\d\d/\d\d\d\d" ></f:validateRegex>
+                            </rich:validator>
+                        </h:inputText><br/><br/><br/><br/>
+                        <h:commandButton value="Ucitaj predmete" action="#{kreirajAnk.ucitajPredmete}" actionListener="#{kreirajAnk.uzmiList}">
+                            
+                        </h:commandButton><br/><br/>
+                        
+                        <rich:dataTable rendered="#{kreirajAnk.visible}" value="#{kreirajAnk.predmeti}" var="pred" id="tableAnketa" rows="20" 
+                                        styleClass="stable">
+
+                            <f:facet name="header"> 
+                                <h:outputText value="Predmeti"/>
+                            </f:facet>
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Sifra" />
+                                </f:facet>
+                                <h:outputText value="#{pred.sifra}" />
+                            </rich:column>
+                            
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Naziv" />
+                                </f:facet>
+                                <h:outputText value="#{pred.naziv}" />
+                            </rich:column>
+                            
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Semestar" />
+                                </f:facet>
+                                <h:outputText value="#{pred.semestar}" />
+                            </rich:column>
+                            
+                            <rich:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Skolska godina" />
+                                </f:facet>
+                                <h:outputText value="#{pred.skolaskaGodina}" />
+                            </rich:column>
+                            
+                        </rich:dataTable><br/>
+                        <h:commandButton value="Posalji anketu" action="#{kreirajAnk.posaljiAnketu}"  onclick="return confirm('Da li ste sigurni?')"/>
+                    </h:form>
+                </div>
+
+                </ui:define> 
+        </ui:composition>
+        
+    </h:body>
+</html>
+

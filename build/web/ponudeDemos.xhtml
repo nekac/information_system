@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Ponude za demonstratore</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+            <h:form id="formponudeDemos">
+                <rich:dataTable value="#{ponudeDemos.labVezbe}" var="lab" id="tableponudeDemos" rows="15" rowClasses="odd-row, even-row"
+                    styleClass="stable">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Laboratorijske vezbe"/>
+                    </f:facet>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Predmet" />
+                        </f:facet>
+                        <h:outputText value="#{lab.predmet}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Naziv" />
+                        </f:facet>
+                        <h:outputText value="#{lab.naziv}" />
+                    </rich:column>
+                
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Datum" />
+                        </f:facet>
+                        <h:outputText value="#{lab.datum}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Pocetak" />
+                        </f:facet>
+                        <h:outputText value="#{lab.vremeod}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Kraj" />
+                        </f:facet>
+                        <h:outputText value="#{lab.vremedo}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Lab" />
+                        </f:facet>
+                        <h:outputText value="#{lab.laboratorija}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Aktivnost" />
+                        </f:facet>
+                        <h:outputText value="#{lab.tipaktivnosti}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Broj studenata" />
+                        </f:facet>
+                        <h:outputText value="#{lab.maxbrojstudenata}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <h:commandButton value="Prihvati" action="#{ponudeDemos.prihvatiVezbu(lab)}" immediate="true">
+                            <a4j:ajax execute="tableponudeDemos" render="tableponudeDemos"/>
+                        </h:commandButton>
+                        <h:commandButton value="Odbij" action="#{ponudeDemos.odbijVezbu(lab)}" immediate="true"  onclick="return confirm('Da li ste sigurni?')">
+                            <a4j:ajax execute="tableponudeDemos" render="tableponudeDemos"/>
+                        </h:commandButton>
+                        
+                    </rich:column>
+                    
+                </rich:dataTable>
+            </h:form>
+
+        </ui:define> 
+        </ui:composition>
+        
+    </h:body>
+</html>
+

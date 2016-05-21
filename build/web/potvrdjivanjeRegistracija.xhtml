@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head>
+        <title>Administracija registracija</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+                
+            </h:outputStylesheet>
+                
+            <h:form id="formDemNastReg">
+                    
+                <rich:dataTable value="#{potvrdjivanjeReg.demonstratori}" var="d" id="tableDemReg" rows="15" rowClasses="odd-row, even-row"
+                    styleClass="stable">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Novi demonstratori"/>
+                    </f:facet>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Ime" />
+                        </f:facet>
+                        <h:outputText value="#{d.name}" />
+                    </rich:column>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Prezime" />
+                        </f:facet>
+                        <h:outputText value="#{d.surname}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Odsek" />
+                        </f:facet>
+                        <h:outputText value="#{d.odsek}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Godina" />
+                        </f:facet>
+                        <h:outputText value="#{d.godina}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="Prosek" />
+                        </f:facet>
+                        <h:outputText value="#{d.prosek}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Dosije demonstratora" action="#{ucitajDemonstratore.sacuvajDemosa(d)}"></h:commandButton>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Registruj" action="#{potvrdjivanjeReg.registrujDemonstratora(d)}">
+                            <a4j:ajax render="formDemNastReg" />
+                        </h:commandButton>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Odbaci" action="#{potvrdjivanjeReg.odbaciDemonstratora(d)}">
+                            <a4j:ajax render="formDemNastReg" />
+                        </h:commandButton>
+                    </rich:column>
+                
+                </rich:dataTable>
+                    <br/><br/>
+                <rich:dataTable value="#{potvrdjivanjeReg.nastavnici}" var="n" id="tableNastReg" rows="15" rowClasses="odd-row, even-row"
+                    styleClass="stable">
+                    
+                    <f:facet name="header">
+                        <h:outputText value="Novi nastavnici"/>
+                    </f:facet>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Ime" />
+                        </f:facet>
+                        <h:outputText value="#{n.name}" />
+                    </rich:column>
+                    
+                    <rich:column >
+                        <f:facet name="header">
+                            <h:outputText value="Prezime" />
+                        </f:facet>
+                        <h:outputText value="#{n.surname}" />
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Dosije nastavnika" action="#{ucitajDemonstratore.sacuvajNast(n)}"></h:commandButton>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Registruj" action="#{potvrdjivanjeReg.registrujNastavnika(n)}">
+                            <a4j:ajax render="formDemNastReg" />
+                        </h:commandButton>
+                    </rich:column>
+                    
+                    <rich:column>
+                        <f:facet name="header">
+                            <h:outputText value="" />
+                        </f:facet>
+                        <h:commandButton value="Odbaci" action="#{potvrdjivanjeReg.odbaciNastavnika(n)}">
+                            <a4j:ajax render="formDemNastReg" />
+                        </h:commandButton>
+                    </rich:column>
+                
+                </rich:dataTable>
+            </h:form>
+
+        </ui:define> 
+        </ui:composition>
+        
+    </h:body>
+</html>
+

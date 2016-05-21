@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+    <h:head> 
+        <title>Kreiranje nove laboratorijske vezbe</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="./mainTemplate.xhtml">
+            <ui:define name="content">   
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+                
+            </h:outputStylesheet>
+            <h:form>
+                
+                Predmet:<br/>
+                <h:selectOneMenu value="#{kreiranjeLabVezbe.predmet}">
+                    <f:selectItems value="#{kreiranjeLabVezbe.predmeti}"/>
+                    <a4j:ajax render="table" execute="@this" event="change"/>
+                </h:selectOneMenu><br/><br/>
+                
+                Naziv:<br/>
+                <h:inputText value="#{kreiranjeLabVezbe.nazivVezbe}"/><br/><br/>
+               
+                Datum:<br/>
+                <rich:calendar value="#{kreiranjeLabVezbe.datum}" id="calendar" locale="en/US"
+                    popup="true" datePattern="yyyy/MM/dd"
+                    showApplyButton="false"  style="width:200px"
+                    disabled="false">
+                </rich:calendar><br/><br/>
+                
+                Vreme pocetka:<br/>
+                <rich:inputNumberSpinner value="#{kreiranjeLabVezbe.vremeSatiOd}" minValue="0" maxValue="23" />&nbsp;
+                <rich:inputNumberSpinner value="#{kreiranjeLabVezbe.vremeMinutiOd}" minValue="0" maxValue="59" /><br/><br/>
+                
+                Vreme zavrsetka:<br/>
+                <rich:inputNumberSpinner value="#{kreiranjeLabVezbe.vremeSatiDo}" minValue="0" maxValue="23" />&nbsp;
+                <rich:inputNumberSpinner value="#{kreiranjeLabVezbe.vremeMinutiDo}" minValue="0" maxValue="59" /><br/><br/>
+                
+                Laboratorija:<br/>
+                <h:inputText value="#{kreiranjeLabVezbe.laboratorija}"/><br/><br/>
+               
+                Tip aktivnosti:<br/>
+                <h:selectOneMenu value="#{kreiranjeLabVezbe.aktivnost}">
+                    <f:selectItems value="#{kreiranjeLabVezbe.aktivnosti}" />
+                    <a4j:ajax render="table" execute="@this" event="change"/>
+                </h:selectOneMenu><br/><br/>
+                
+                Maksimalno demonstratora:<br/>
+                <rich:inputNumberSpinner value="#{kreiranjeLabVezbe.maxDemosa}" minValue="0"/><br/><br/>
+                
+                Pozovi demonstratore:<br/>
+                
+                <rich:pickList value="#{kreiranjeLabVezbe.stringDemIzabrani}"
+                                    sourceCaption="Svi demonstratori" targetCaption="Izabrani demonstratori"
+                                    listWidth="170px" listHeight="100px"
+                                    orderable="true">
+                    <f:selectItems value="#{kreiranjeLabVezbe.stringDemSvi}" var="demos" itemValue="#{demos}" itemLabel="#{demos}" />
+                </rich:pickList>
+                
+                <br/><br/><br/>
+                <h:commandButton value="Zavrsi" action="#{kreiranjeLabVezbe.kreirajVezbu}" onclick="return confirm('Da li ste sigurni?')"></h:commandButton>
+            
+            </h:form>
+            
+        </ui:define> 
+        </ui:composition>
+    </h:body>
+</html>
+
